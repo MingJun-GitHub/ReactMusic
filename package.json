@@ -90,7 +90,11 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "axios": "^0.17.1",
+    "dns": "^0.2.2",
+    "fetch": "^1.1.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5"
-  }
+  },
+  "proxy": "http://localhost:3030/"
 }

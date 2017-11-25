@@ -1,0 +1,130 @@
+.search-bg{
+    background-image: url("http://api.dujin.org/bing/1366.php");
+    // background-image: url("../images/bg.png");
+    background-repeat:repeat;
+    background-color: none;
+    background-position: center;
+    opacity: 1;
+    background-size: auto 100%;
+    width: 100%;
+    height: 100%;
+}
+.search{
+    background-color: rgba(0,0,0,.8);
+    width: 7.5rem;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    .logo{
+        padding: .8rem 0 0;
+        text-align: center;
+        img{
+            width: 1rem;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        position: relative;
+    }
+    .search-box{
+        position: relative;
+        z-index: 1;
+        margin: .3rem auto 0;
+        width: 6.5rem;
+        border: 1px solid #ccc;
+        height: .7rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: .35rem;
+        font-size: .26rem;
+        padding-left: .2rem;
+        padding-right: .05rem;
+        button{
+            width: 1.2rem;
+            background: #2a2a2a;
+            color: #fff;
+            height: .6rem;
+            border-radius: .3rem;
+            font-size: .25rem;
+            &:active{
+                opacity: .7;
+            }
+        }
+        input{
+            width: 5.3rem;
+            overflow: hidden;
+            text-align: left;
+            color: #666;
+            padding-right: .12rem;
+            color: #fff;
+        }
+    }
+    .search-result{
+        .loading{
+            position: relative;
+            margin: .2rem auto 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: url('../images/loading.gif') center no-repeat;
+            background-size: 100% auto;
+            p{
+                position: absolute;
+                text-align: center;
+                bottom: 0;
+                left: 0;
+                font-size: .25rem;
+                color: #f8f8f8;
+                width: 100%;
+                bottom: 0rem;
+            }
+            // background-size: 100% auto;
+        }
+        .empty{
+            margin: 1rem auto 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: url('../images/empty.png') center no-repeat;
+            background-size: 100% auto;
+            position: relative;
+            p{
+                width: 7.5rem;
+                position: absolute;
+                text-align: center;
+                left: 50%;
+                margin-left: -3.75rem;
+                font-size: .25rem;
+                color: #f8f8f8;
+                bottom: -.45rem;
+            }
+        }
+        .music-list{
+            width: 6.5rem;
+            height: auto;
+            margin: .5rem auto;
+            padding-bottom: .2rem;
+            color: hsla(0,0%,100%,.6);
+            height: 5.7rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling : touch;
+            li{
+                font-size:.25rem;
+                height: .8rem;
+                line-height: .8rem;
+                border-bottom: 1px solid hsla(0,0%,100%,.6);
+                margin: 0 .1rem;
+                background: url('../images/play.png') center right no-repeat;
+                background-size: .28rem auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:active{
+                    opacity: .7;
+                }
+            }
+        }
+    }
+}
