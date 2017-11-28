@@ -43,7 +43,7 @@ class SearchPage extends Component {
             keyword: event.target.value
         })
     }
-    closeLoading (index, val) {
+    selectItems(index, val) {
         console.log('index', index, val)
     }
     componentWillMount() {

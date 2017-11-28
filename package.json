@@ -94,7 +94,9 @@
     "dns": "^0.2.2",
     "fetch": "^1.1.0",
     "less": "^2.7.3",
-    "less-loader": "^4.0.5"
+    "less-loader": "^4.0.5",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "proxy": "http://localhost:3030/"
 }
