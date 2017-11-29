@@ -1,7 +1,3 @@
 import Index from '../components/search'
-const routeConfig = [{
-    path: '/',
-    component: Index
-}]
-
+const routeConfig = []
 export default routeConfig;
