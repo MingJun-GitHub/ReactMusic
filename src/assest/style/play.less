@@ -1,0 +1,150 @@
+.play-bg {
+    //background-image: url("http://api.dujin.org/bing/1366.php");
+    // background-image: url("../images/bg.png");
+    background-repeat: repeat;
+    background-color: none;
+    background-position: center;
+    opacity: 1;
+    background-size: auto 100%;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+}
+
+.play {
+    background-color: rgba(0, 0, 0, .7);
+    width: 7.5rem;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    .logo {
+        padding: .8rem 0 0;
+        text-align: center;
+        img {
+            width: 1rem;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        position: relative;
+    }
+    .play-music-box {
+        position: relative;
+        z-index: 1;
+        width: 5.5rem;
+        height: 5.5rem;
+        margin: 1.4rem auto 0; // background-color: #fff;
+        background: url('../images/p-2.png') no-repeat center;
+        background-size: 100% 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &::before {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 100%;
+            display: block;
+            background: url('../images/p-4.png') no-repeat center;
+            background-size: contain;
+            z-index: 2;
+            animation: roateAni 20s infinite linear;
+            /*
+            animation-name: roateAni;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            */
+        }
+        &:after {
+            position: absolute;
+            content: '';
+            height: 2.86rem;
+            width: 2rem;
+            display: block;
+            background: url('../images/p-1.png') no-repeat center;
+            background-size: contain;
+            top: -1.4rem;
+            left: 45%;
+            z-index: 1;
+        }
+        .play-music-photo {
+            width: 3.45rem;
+            height: 3.45rem;
+            background: url('../images/p-3.png') no-repeat center;
+            background-size: contain;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: roateAni 20s infinite linear;
+            /*
+            animation-name: roateAni;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            */
+            img {
+                width: 100%;
+                height: auto;
+                display: block
+            }
+        }
+        .play-music-btn {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            display: block;
+            background: url('../images/p-b.png') no-repeat center;
+            background-size: contain;
+            z-index: 2;
+            &:active {
+                opacity: .7;
+            }
+        }
+    }
+    .song-lyric {
+        margin-top: 1rem;
+        text-align: center;
+        h4 {
+            margin-bottom: .4rem;
+            padding: 0 1rem;
+            color: hsla(0, 0%, 100%, .6);
+            font-size: .32rem;
+            font-weight: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            span:not(:last-child) {
+                font-weight: 700;
+                font-size: .34rem;
+                color: #fff;
+            }
+        }
+        ul {
+            height: 1.86rem;
+            margin: 0 1rem;
+            li {
+                font-size: .32rem;
+                color: hsla(0, 0%, 100%, .6);
+                height: .62rem;
+                line-height: .62rem;
+                &.on {
+                    color: rgb(255, 255, 255, 1);
+                    font-size: .36rem;
+                }
+            }
+        }
+    }
+}
+
+@keyframes roateAni {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

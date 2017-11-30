@@ -20,8 +20,9 @@ app.all('*', (req, res, next) => {
 const getSucApi = (req, res) => res.statusCode === 200;
 app.use(cache('2 minutes', getSucApi));
 // 加载路由
-app.use('/search', require('./router/search'));   // 加载搜索
-
+app.use('/search', require('./router/search'));    // 加载搜索
+app.use('/details', require('./router/details'));  // 加载歌曲详情
+app.use('/lyric', require('./router/lyric'));      // 加载歌词获取
 app.listen(port, () => {
     console.log(`this music server running ${port}...`);
 })

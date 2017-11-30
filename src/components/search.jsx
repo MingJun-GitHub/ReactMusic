@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import '../assest/style/search.less'   // 搜索样式
 import logo from '../assest/images/logo_b.png'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 class SearchPage extends Component {
     constructor(props) {
         super(props);
@@ -69,8 +70,9 @@ class SearchPage extends Component {
                                        return <Items key={index} val={val} />
                                     })} */}
                                     {this.state.result.map((val, index) => {
-                                        return <li onClick={this.closeLoading.bind(this, index, val)} key={index}> <span>{val.artists[0].name}</span>-<span>{val.album.name}</span></li>
-                                    })}
+                                        // return <li onClick={this.closeLoading.bind(this, index, val)} key={index}> <span>{val.artists[0].name}</span>-<span>{val.album.name}</span></li>
+                                        return <li key={index}><Link to={{pathname:"/play/"+val.id, state:{id:val.id}}}><span>{val.artists[0].name}</span>-<span>{val.album.name}</span></Link></li>
+                                   })}
                                 </ul></div> : ''
                         }
                     </div>
