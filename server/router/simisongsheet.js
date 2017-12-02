@@ -4,11 +4,14 @@ const { createWebAPIRequest } = require('../utils/req')
 
 router.get('/', (req, res) => {
   const cookie = req.get('Cookie') ? req.get('Cookie') : ''
-  const data = {}
-  const id = req.query.id
+  const data = {
+    songid: req.query.id,
+    offset: req.query.offset || 0,
+    limit: req.query.limit || 50
+  }
   createWebAPIRequest(
     'music.163.com',
-    '/weapi/song/lyric?os=osx&id=' + id + '&lv=-1&kv=-1&tv=-1',
+    '/weapi/discovery/simiPlaylist',
     'POST',
     data,
     cookie,

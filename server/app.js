@@ -20,10 +20,16 @@ app.all('*', (req, res, next) => {
 const getSucApi = (req, res) => res.statusCode === 200;
 app.use(cache('2 minutes', getSucApi));
 // 加载路由
-app.use('/search', require('./router/search'));    // 加载搜索
-app.use('/details', require('./router/details'));  // 加载歌曲详情
-app.use('/lyric', require('./router/lyric'));      // 加载歌词获取
+app.use('/search', require('./router/search'));        // 加载搜索
+app.use('/details', require('./router/details'));      // 加载歌曲详情
+app.use('/lyric', require('./router/lyric'));          // 加载歌词获取
+app.use('/comment', require('./router/comment'));      // 加载歌曲评论
+app.use('/recommend', require('./router/recommend'));  // 加载推荐歌曲 登录后
+app.use('/simi', require('./router/simi'));            // 找相似歌曲
+app.use('/simimv', require('./router/simimv'));        // 找相似MV
+app.use('/simisongsheet', require('./router/simisongsheet'));        // 找相似歌曲
+app.use('/mp3url', require('./router/mp3url'));        // 获取mp3的url
 app.listen(port, () => {
-    console.log(`this music server running ${port}...`);
+  console.log(`this music server running ${port}...`);
 })
 module.exports = app;
