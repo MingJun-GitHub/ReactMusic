@@ -18,7 +18,8 @@ class Play extends Component {
             recmv: null,         // 推荐MV
             recplaylist: null,   // 推荐歌单
             mp3url: null,        // 音乐播放链条
-            ischange: false      // 是否改变 
+            isplay: false,           // 是否改变 
+            curPlayTime: null        // 当前播放时间
         }
         this.getSongDetails = this.getSongDetails.bind(this)
         this.getSongLyric = this.getSongLyric.bind(this)
@@ -29,6 +30,7 @@ class Play extends Component {
         this.getMp3URL = this.getMp3URL.bind(this)
         this.goMusicurl = this.goMusicurl.bind(this)
         this.playMusic = this.playMusic.bind(this)
+        this.RollLyric = this.RollLyric.bind(this)
     }
     componentDidMount() {
         // console.log(this.props.match)
@@ -39,6 +41,10 @@ class Play extends Component {
         this.getSongComment(id)
         this.getSongSiMi(id)
         this.getSongSheetSiMi(id)
+    }
+    componentDidUpdate() {
+        console.log('有时间改变了')
+       
     }
     // 获取歌曲详情
     getSongDetails(id) {
@@ -70,8 +76,14 @@ class Play extends Component {
         axios.get(`/lyric?id=${id}`).then(data => {
             if (data.data.code === 200) {
                 let lyricObj = data.data.lrc.lyric
-                const lyricTime = lyricObj.replace(/\[\S*\]/ig, '').split('\n')
-                const lyricItem = lyricObj.replace(/\[\S*\]/ig, '').split('\n')
+                const lyricTime = lyricObj.match(/\[\d{2}:\d{2}\.\d{2}\]/ig).map((val) => {
+                    // console.log(val.replace(/\[/ig, '').replace(/\]/ig, ''))
+                    return val.replace(/\[/ig, '').replace(/\]/ig, '')
+                })
+                const lyricItem = lyricObj.replace(/\[\S*\]/ig, '').split('\n').filter((val) => {
+                    return !(!val || val === '');
+                })
+                console.log(lyricTime)
                 this.setState({
                     lyric: {
                         lyricTime: lyricTime,
@@ -140,54 +152,41 @@ class Play extends Component {
                 this.setState({
                     mp3url: data.data.data
                 })
-                window.addEventListener('touchstart', () => {
-                    ReactDOM.findDOMNode(this.refs.audio).play()
-                }, false)
+                // document.body.addEventListener('touchstart', this.playMusic(), false)
+                this.RollLysrc()
             }
         }).catch(err => {
             console.log(err)
         })
     }
-    componentDidUpdate() {
-        // window.location.reload()
-        //console.log('')
-        // console.log('this-', this.props.match.params.id)
-        /*
-        const id = this.props.match.params.id  // 获取请求id
-        this.getSongDetails(id)
-        // this.getSongLyric(id)
-        this.getSongComment(id)
-        this.getSongSiMi(id)
-        this.getSongSheetSiMi(id)
-        */
-    }
-    goMusicurl (id) {
+    goMusicurl(id) {
         // console.log('id=====', id)
         this.getSongDetails(id)
         // this.getSongLyric(id)
         this.getSongComment(id)
         this.getSongSiMi(id)
         this.getSongSheetSiMi(id)
-    } 
-    playMusic () {
-        const audios =  ReactDOM.findDOMNode(this.refs.audio)
-        console.log('au', audios.paused)
+    }
+    playMusic() {
+        const audios = ReactDOM.findDOMNode(this.refs.audio)
         if (audios) {
-            if (!audios.paused){
+            this.RollLyric(audios)
+            if (!audios.paused) {
                 // false 就是播放中
                 audios.pause()
             } else {
                 audios.play()
             }
+            this.setState({
+                isplay: !this.state.isplay
+            })
         }
-        
-        /*
-        if (audios.stop) {
-            audios.play()
-        } else {
-            audios.pause()
-        }
-        */
+    }
+    RollLyric (obj) {
+        var _obj = obj
+        setInterval(() => {
+            console.log('time', _obj.currentTime) 
+        },  100)  
     }
     render() {
         const hasDetais = this.state.details
@@ -200,11 +199,11 @@ class Play extends Component {
         return (
             hasDetais ? <div className="play-bg" style={{ backgroundImage: `url(${this.state.photo})` }}>
                 <div className="play">
-                    <div className="play-music-box" onClick={this.playMusic.bind(this)}>
+                    <div className={`play-music-box ${this.state.isplay ? 'play-ani' : ''}`} onTouchStart={this.playMusic.bind(this)}>
                         <div className="play-music-photo">
                             <img src={this.state.photo} alt="封面" />
                         </div>
-                        <div className="play-music-btn" style={{ display: 'block' }}></div>
+                        <div className="play-music-btn" style={{ display: this.state.isplay ? 'none' : 'block' }}></div>
                     </div>
                     <div className="song-lyric">
                         <h4> <span>{this.state.songname}</span><span>&nbsp;-&nbsp;</span><span>{this.state.singer}</span></h4>
@@ -287,7 +286,7 @@ class Play extends Component {
                                                     <p classNamen="name">{val.name}</p>
                                                     <p className="songs">{val.artists[0].name}-{val.album.name}</p>
                                                 </div>
-                                        </Link>
+                                            </Link>
                                         </li>
                                     })
                                 }

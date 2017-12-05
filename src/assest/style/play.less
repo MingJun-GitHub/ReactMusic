@@ -5,13 +5,14 @@
 .play-bg {
     //background-image: url("http://api.dujin.org/bing/1366.php");
     // background-image: url("../images/bg.png");
-    background-repeat: repeat;
+    // background-repeat: repeat;
     background-color: transparent;
-    background-position: center;
+    background-position:center;
+    background-repeat: no-repeat;
     opacity: 1;
     background-size: auto 100%;
     width: 100%;
-    height: 100%;
+    //height: 100%;
     background-attachment: fixed;
 }
 
@@ -31,6 +32,14 @@
             margin: 0 auto;
         }
         position: relative;
+    }
+    .play-ani {
+        &:before{
+            animation: roateAni 20s infinite linear;
+        }
+        .play-music-photo{
+            animation: roateAni 20s infinite linear;
+        }  
     }
     .play-music-box {
         position: relative;
@@ -54,7 +63,6 @@
             background: url('../images/p-4.png') no-repeat center;
             background-size: contain;
             z-index: 2;
-            animation: roateAni 20s infinite linear;
             /*
             animation-name: roateAni;
             animation-duration: 20s;
@@ -84,7 +92,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: roateAni 20s infinite linear;
             /*
             animation-name: roateAni;
             animation-duration: 20s;
@@ -310,7 +317,7 @@
             li {
                 display: inline-block;
                 width: 3.75rem;
-                //margin-right: .1rem;
+                margin-right: .1rem;
                 line-height: 1.4;
                 &:last-child {
                     margin-right: 0;
