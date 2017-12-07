@@ -139,11 +139,15 @@
                 color: #fff;
             }
         }
-        ul {
+        .lyric-list{
             height: 1.86rem;
-            margin: 0 1rem;
+            margin: 0 .25rem;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: hidden;
+        }
+        ul {
+            transition: all .3s ease-in-out;
+            transform: translateY(0);
             -webkit-overflow-scrolling : touch;
             li {
                 font-size: .32rem;

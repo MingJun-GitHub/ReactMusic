@@ -18,8 +18,9 @@ class Play extends Component {
             recmv: null,         // 推荐MV
             recplaylist: null,   // 推荐歌单
             mp3url: null,        // 音乐播放链条
-            isplay: false,           // 是否改变 
-            curPlayTime: null        // 当前播放时间
+            isplay: false,       // 是否改变 
+            curPlayTime: 0,      // 当前播放时间
+            curLyricIndex: 0     // 播放到当前的时间点
         }
         this.getSongDetails = this.getSongDetails.bind(this)
         this.getSongLyric = this.getSongLyric.bind(this)
@@ -31,6 +32,8 @@ class Play extends Component {
         this.goMusicurl = this.goMusicurl.bind(this)
         this.playMusic = this.playMusic.bind(this)
         this.RollLyric = this.RollLyric.bind(this)
+        this.StopRollLyric = this.StopRollLyric.bind(this)
+        this.formatTime = this.formatTime.bind(this)
     }
     componentDidMount() {
         // console.log(this.props.match)
@@ -41,10 +44,6 @@ class Play extends Component {
         this.getSongComment(id)
         this.getSongSiMi(id)
         this.getSongSheetSiMi(id)
-    }
-    componentDidUpdate() {
-        console.log('有时间改变了')
-       
     }
     // 获取歌曲详情
     getSongDetails(id) {
@@ -83,7 +82,6 @@ class Play extends Component {
                 const lyricItem = lyricObj.replace(/\[\S*\]/ig, '').split('\n').filter((val) => {
                     return !(!val || val === '');
                 })
-                console.log(lyricTime)
                 this.setState({
                     lyric: {
                         lyricTime: lyricTime,
@@ -152,8 +150,6 @@ class Play extends Component {
                 this.setState({
                     mp3url: data.data.data
                 })
-                // document.body.addEventListener('touchstart', this.playMusic(), false)
-                this.RollLysrc()
             }
         }).catch(err => {
             console.log(err)
@@ -169,24 +165,54 @@ class Play extends Component {
     }
     playMusic() {
         const audios = ReactDOM.findDOMNode(this.refs.audio)
+        const liheight = document.querySelectorAll('.lyric-list li')[0].offsetHeight
+        console.log('liheight000', liheight)
         if (audios) {
-            this.RollLyric(audios)
             if (!audios.paused) {
                 // false 就是播放中
                 audios.pause()
+                this.StopRollLyric()
             } else {
                 audios.play()
+                this.RollLyric(audios, liheight)
             }
             this.setState({
                 isplay: !this.state.isplay
             })
         }
     }
-    RollLyric (obj) {
-        var _obj = obj
-        setInterval(() => {
-            console.log('time', _obj.currentTime) 
-        },  100)  
+    RollLyric(obj, height) {
+        this.timer = setInterval(() => {
+            var res = this.formatTime(obj.currentTime)
+            // console.log('是不是存在中', )
+            const _index = this.state.lyric.lyricTime.indexOf(res)
+            if (_index!==-1){
+               // 不为-1的话，就开始滚动
+               document.querySelector('.lyric-list ul').style.webkitTransform="translate(0px,"+(-height*_index+height)+"px) scale(1)";
+               this.setState({
+                curLyricIndex: _index
+               })
+            }
+            this.setState({
+                curPlayTime: obj.currentTime
+            })
+        }, 0.1)
+    }
+    formatTime(t) {
+        var m = '00'
+        var s = '00.00'
+        if (t > 60) {
+            m = parseInt(t / 60, 10)
+            s = t % 60
+        } else {
+            s = t
+        }
+        m = m < 10 ? `0${parseInt(t / 60, 10)}` : parseInt(t / 60, 10)
+        s = s < 10 ? `0${String(s.toFixed(2))}` : String(s.toFixed(2))
+        return `${m}:${s}`
+    }
+    StopRollLyric() {
+        clearInterval(this.timer)
     }
     render() {
         const hasDetais = this.state.details
@@ -211,7 +237,7 @@ class Play extends Component {
                             {hasLyric && hasLyric['lyricItem'].length ? <ul>
                                 {
                                     this.state.lyric['lyricItem'].map((val, index) => {
-                                        let hasOn = index === 0 ? 'on' : ''
+                                        let hasOn = index === this.state.curLyricIndex ? 'on' : ''
                                         return <li className={hasOn} key={index}>{val}</li>
                                     })
                                 }
