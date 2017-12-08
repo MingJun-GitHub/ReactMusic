@@ -1,22 +1,26 @@
-.main {
-    height: auto !important;
+.playvideo{
+    width: 7.5rem;
+    height: auto;
+    margin: 0 auto;
 }
-
-.play-bg {
-    //background-image: url("http://api.dujin.org/bing/1366.php");
-    // background-image: url("../images/bg.png");
-    // background-repeat: repeat;
+.playbg {
+    position: fixed;
+    width: 7.5rem;
+    height: 100%;
     background-color: transparent;
     background-position:center;
     background-repeat: no-repeat;
     opacity: 1;
-    background-size: auto 100%;
-    width: 100%;
-    //height: 100%;
-    background-attachment: fixed;
+    background-size:auto 100%;
+    // background-attachment: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
-
 .play {
+    position: relative;
+    z-index: 2;
     background-color: rgba(0, 0, 0, .7);
     width: 7.5rem;
     margin: 0 auto; // height: 100%;

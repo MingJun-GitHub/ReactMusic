@@ -12,6 +12,8 @@ import './assest/style/common.less'
 import ReactDOM from 'react-dom'
 import Index from './components/search'
 import Play from './components/play'
+import Playlist from './components/playlist'
+import MV from './components/mv'
 import { HashRouter as Router, Route } from 'react-router-dom'
 class App extends Component {
     render() {
@@ -44,6 +46,8 @@ ReactDOM.render((
             <Route path="/inbox/:id" component={Inbox} />
             <Route path="/play/:id" component={Play} />
             <Route path="/search" component={Index} />
+            <Route path="/playlist/:id" component={Playlist} />
+            <Route path="/mv/:id" component={MV} />
             <FadingRoute path="/cool/:id" component={Play} />
         </App>
     </Router>

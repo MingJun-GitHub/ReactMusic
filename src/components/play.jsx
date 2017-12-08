@@ -156,12 +156,7 @@ class Play extends Component {
         })
     }
     goMusicurl(id) {
-        // console.log('id=====', id)
-        this.getSongDetails(id)
-        // this.getSongLyric(id)
-        this.getSongComment(id)
-        this.getSongSiMi(id)
-        this.getSongSheetSiMi(id)
+        window.location.reload()
     }
     playMusic() {
         const audios = ReactDOM.findDOMNode(this.refs.audio)
@@ -223,7 +218,8 @@ class Play extends Component {
         const hasReplaylist = this.state.recplaylist
         const hasUrl = this.state.mp3url
         return (
-            hasDetais ? <div className="play-bg" style={{ backgroundImage: `url(${this.state.photo})` }}>
+            hasDetais ? <div className="playvideo">
+                <div className="playbg" style={{ backgroundImage: `url(${this.state.photo})` }}></div>
                 <div className="play">
                     <div className={`play-music-box ${this.state.isplay ? 'play-ani' : ''}`} onTouchStart={this.playMusic.bind(this)}>
                         <div className="play-music-photo">
@@ -268,13 +264,13 @@ class Play extends Component {
                             hasReplaylist ? <ul>
                                 {this.state.recplaylist.playlists.map((val, index) => {
                                     return <li key={index}>
-                                        <a href="javasciprt:;">
+                                        <Link to={`/playlist/${val.id}`}>
                                             <div className="pic"><img src={val.coverImgUrl} alt="封面" /></div>
                                             <div className="info">
                                                 <p className="name">{val.name}</p>
                                                 <p className="songs">{val.tags.join(',')}</p>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </li>
                                 })}
                             </ul> : <div>没有信息</div>
@@ -287,13 +283,13 @@ class Play extends Component {
                                 {
                                     this.state.recmv.mvs.map((val, index) => {
                                         return <li key={index}>
-                                            <a href="javasciprt:;">
+                                            <Link to={`/mv/${val.id}`}>
                                                 <div className="pic"><img src={val.cover} alt="封面" /><i></i></div>
                                                 <div className="info">
                                                     <p className="name">{val.name}</p>
                                                     <p className="songs">{val.artistName}</p>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </li>
                                     })}
                             </ul> : <div>没有信息</div>

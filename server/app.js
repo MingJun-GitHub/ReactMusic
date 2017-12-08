@@ -29,6 +29,7 @@ app.use('/simi', require('./router/simi'));            // 找相似歌曲
 app.use('/simimv', require('./router/simimv'));        // 找相似MV
 app.use('/simisongsheet', require('./router/simisongsheet'));        // 找相似歌曲
 app.use('/mp3url', require('./router/mp3url'));        // 获取mp3的url
+app.use('/playlistdetails', require('./router/playlistdetails'))    // 歌单详情
 app.listen(port, () => {
   console.log(`this music server running ${port}...`);
 })
