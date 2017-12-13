@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import '../assest/style/play.less'   // 搜索样式
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Loding from './loading/loading'
+import Title from './title/title'
 class Play extends Component {
     constructor(props) {
         super(props);
@@ -241,7 +243,7 @@ class Play extends Component {
                         </div>
                     </div>
                     <div className="comment-list">
-                        <h3>精彩评论</h3>
+                        <Title name="精彩评论"></Title>
                         {hasComment ?
                             <ul>
                                 {this.state.comment.hotComments.map((val, index) => {
@@ -259,7 +261,7 @@ class Play extends Component {
                         <h4>查看全部评论&gt;</h4>
                     </div>
                     <div className="rec-playlist">
-                        <h3>推荐歌单</h3>
+                        <Title name="推荐歌单"></Title>
                         {
                             hasReplaylist ? <ul>
                                 {this.state.recplaylist.playlists.map((val, index) => {
@@ -277,7 +279,7 @@ class Play extends Component {
                         }
                     </div>
                     <div className="rec-mv">
-                        <h3>相似MV</h3>
+                        <Title name="相似MV"></Title> 
                         {
                             hasRecMv ? <ul>
                                 {
@@ -296,7 +298,7 @@ class Play extends Component {
                         }
                     </div>
                     <div className="rec-music">
-                        <h3>喜欢的人喜欢听这几首歌</h3>
+                        <Title name="喜欢的人喜欢听这几首歌"></Title> 
                         {
                             hasRecsong ? <ul>
                                 {
@@ -319,7 +321,7 @@ class Play extends Component {
                         hasUrl ? <audio id="mpvideos" ref="audio" style={{ display: 'none' }} src={this.state.mp3url[0].url} preload="metadata" controls /> : <div>没有播放链接</div>
                     }
                 </div>
-            </div> : <div>没有详情</div>
+            </div> : <Loding />
         );
     }
 }
